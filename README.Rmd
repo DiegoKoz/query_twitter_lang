@@ -59,7 +59,7 @@ answers <- rt2 %>%
   pivot_longer(-status_id,names_to = 'question',values_to = 'answer')
 
 ```
-```{r fig.height=10, fig.width=10}
+```{r plot, fig.height=10, fig.width=10}
 ggdata <- answers %>% 
   mutate(question = factor(question, levels =c('first_language','had_difficulties','most_used','totally_hate', 'most_loved','for_beginners')),
          answer = str_to_title(answer)) %>% 
