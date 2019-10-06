@@ -63,7 +63,8 @@ answers <- rt2 %>%
 
 ``` r
 ggdata <- answers %>% 
-  mutate(question = factor(question, levels =c('first_language','had_difficulties','most_used','totally_hate', 'most_loved','for_beginners') )) %>% 
+  mutate(question = factor(question, levels =c('first_language','had_difficulties','most_used','totally_hate', 'most_loved','for_beginners')),
+         answer = str_to_title(answer)) %>% 
   filter(answer!='') %>% 
   group_by(question,answer) %>% 
   summarise(n=n()) %>%
