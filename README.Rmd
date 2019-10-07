@@ -49,16 +49,18 @@ answers <- rt2 %>%
          most_loved = trimws(str_extract(most_loved,'(?<=5. Most loved:).*'),which = 'both'),
          for_beginners = trimws(str_extract(for_beginners,'(?<=6. For beginners:).*'),which = 'both'),
          ) %>% 
-  mutate(first_language = str_extract(first_language,'[[:alnum:]]*'),
-         had_difficulties = str_extract(had_difficulties,'[[:alnum:]]*'),
-         most_used = str_extract(most_used,'[[:alnum:]]*'),
-         totally_hate = str_extract(totally_hate,'[[:alnum:]]*'),
-         most_loved = str_extract(most_loved,'[[:alnum:]]*'),
-         for_beginners = str_extract(for_beginners,'[[:alnum:]]*')) %>% 
+  mutate(first_language    = str_extract(first_language,'[[[:alpha:]]#+]*'),
+         had_difficulties  = str_extract(had_difficulties,'[[[:alpha:]]#+]*'),
+         most_used         = str_extract(most_used,'[[[:alpha:]]#+]*'),
+         totally_hate      = str_extract(totally_hate,'[[[:alpha:]]#+]*'),
+         most_loved        = str_extract(most_loved,'[[[:alpha:]]#+]*'),
+         for_beginners     = str_extract(for_beginners,'[[[:alpha:]]#+]*')) %>% 
   drop_na() %>% 
   pivot_longer(-status_id,names_to = 'question',values_to = 'answer')
 
 ```
+
+
 ```{r plot, fig.height=10, fig.width=10}
 ggdata <- answers %>% 
   mutate(question = factor(question, levels =c('first_language','had_difficulties','most_used','totally_hate', 'most_loved','for_beginners')),
@@ -88,4 +90,5 @@ ggdata <- answers %>%
 ```{r}
 ggsave('plot.png')
 ```
+
 
